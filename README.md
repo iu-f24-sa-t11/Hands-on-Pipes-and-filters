@@ -13,33 +13,33 @@
 Hands-on-Pipes-and-Filters/
 ├── components/
 │   ├── filters/
-│   │   ├── __init__.py               # Initializes the filters module, making filter classes accessible
+│   │   ├── __init__.py               # Initializes the filters module, making filter classes accessible, defines the abstract `Filter` class
 │   │   ├── color_inversion.py        # Applies a color inversion filter to a video stream
 │   │   ├── contrast.py               # Adjusts the contrast of frames in a video stream
 │   │   ├── gaussian_blur.py          # Applies Gaussian blur to video frames for smoothing
 │   │   ├── mirror.py                 # Mirrors video frames horizontally
 │   │   ├── pencil_sketch.py          # Converts video frames into a pencil sketch effect
-│   │   ├── proxy.py                  # Acts as a proxy to manage filters
+│   │   └── proxy.py                  # Acts as a proxy to manage filters
 │   ├── pipes/
-│   │   ├── __init__.py               # Initializes the pipes module
-│   │   ├── last_value.py             # Holds the last processed value in the pipeline
-│   │   ├── queue.py                  # Implements a queue pipe for storing processed frames
+│   │   ├── __init__.py               # Initializes the pipes module and defines an abstract Pipe class for handling the put and get operations in the pipeline
+│   │   ├── last_value.py             # Implements LastValuePipe, an abstract pipe that holds and returns the last processed value
+│   │   └── queue.py                  # Implements a queue-based pipeline that stores processed frames in a queue
 │   ├── sinks/
-│   │   ├── __init__.py               # Initializes the sinks module
-│   │   ├── show.py                   # Displays video frames on the screen or sends them to an output
+│   │   ├── __init__.py               # Initializes the sinks module, defines the abstract Sink class
+│   │   └── show.py                   # Sends display commands to the main thread for rendering video frames on the screen
 │   ├── sources/
-│   │   ├── __init__.py               # Initializes the sources module
-│   │   ├── video_capture.py          # Captures video from a camera or a video file
+│   │   ├── __init__.py               # Initializes the sources module, defines the abstract base class `Source`
+│   │   └── video_capture.py          # Captures video from a camera or a video file
 │   ├── __init__.py                   # Initializes the components module
-│   ├── processor.py                  # Handles the processing of video frames through different components
+│   └── processor.py                  # Handles the processing of video frames through different components
 ├── exceptions/
 │   ├── __init__.py                   # Initializes the exceptions module
-│   ├── input_pipe_not_set.py         # Custom exception raised when an input pipe is not configured
+│   └── input_pipe_not_set.py         # Custom exception raised when an input pipe is not configured
 ├── README.md                         # Documentation on how to set up and run the project
 ├── __init__.py                       # Root module initialization file
 ├── executor.py                       # Manages the execution and orchestration of filters, pipes, and sinks
 ├── main.py                           # Main entry point of the application; initializes components and starts the video processing
-├── requirements.txt                  # Lists the necessary dependencies and Python packages to install
+└── requirements.txt                  # Lists the necessary dependencies and Python packages to install
 
 </pre>
 
