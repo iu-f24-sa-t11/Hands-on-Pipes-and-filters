@@ -1,4 +1,4 @@
-import cv2 # Scale factor for contrast
+import cv2
 
 from components.filters import Filter
 

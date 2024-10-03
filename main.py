@@ -13,8 +13,12 @@ def main():
 
     render_queues = [LastValuePipe() for i in range(2)]
 
-    input_video_show = ImShowSink(render_queue=render_queues[0], window_name="Input Video Stream")
-    output_video_show = ImShowSink(render_queue=render_queues[1], window_name="Output Video Stream")
+    input_video_show = ImShowSink(
+        render_queue=render_queues[0], window_name="Input Video Stream"
+    )
+    output_video_show = ImShowSink(
+        render_queue=render_queues[1], window_name="Output Video Stream"
+    )
 
     video_capture_to_input_video_show = LastValuePipe()
     video_capture.add_output_pipe(video_capture_to_input_video_show)
@@ -24,7 +28,7 @@ def main():
         MirrorFilter(),
         ColorInversionFilter(),
         ContrastFilter(),
-        GaussianBlurFilter()
+        GaussianBlurFilter(),
     ]
 
     video_capture_to_filters = LastValuePipe()

@@ -6,11 +6,8 @@ from components.sinks import Sink
 
 class ImShowSink(Sink):
     def __init__(
-            self,
-            render_queue: Pipe,
-            window_name: str = "Processed Video Stream",
-            *args,
-            **kwargs):
+        self, render_queue: Pipe, window_name: str = "Video Stream", *args, **kwargs
+    ):
         super().__init__(*args, **kwargs)
         self.render_queue: Pipe = render_queue
         self.window_name: str = window_name
