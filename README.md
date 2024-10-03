@@ -18,6 +18,10 @@ Filters applied:
 - ContrastFilter – Adjusts the contrast of the video.
 - GaussianBlurFilter – Applies a Gaussian blur effect to the video.
 
+#### Screenshot:
+![-](https://github.com/user-attachments/assets/841bfe1c-9000-4426-82d6-dbc3d1cfce1d)
+
+
 ## Codebase organisation:
 <pre>
 Hands-on-Pipes-and-Filters/
