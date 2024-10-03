@@ -19,7 +19,6 @@ class Processor(ABC):
 
     def run(self):
         while self.is_running:
-            #print(f"{self} is running")
             self.process()
 
     def process(self):
