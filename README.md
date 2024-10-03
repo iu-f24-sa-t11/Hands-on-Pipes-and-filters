@@ -19,7 +19,7 @@ Filters applied:
 - GaussianBlurFilter – Applies a Gaussian blur effect to the video.
 
 #### Screenshot:
-![-](https://github.com/user-attachments/assets/841bfe1c-9000-4426-82d6-dbc3d1cfce1d)
+![-](https://github.com/iu-f24-sa-t11/Hands-on-Pipes-and-filters/raw/screenshot/photo_2024-10-04_00-06-30.jpg)
 
 
 ## Codebase organisation:
