@@ -1,47 +1,53 @@
-import cv2
-from multiprocessing import Queue
-from filters import CannyEdge, Mirror, Resize, Save
+from components.filters.color_inversion import ColorInversionFilter
+from components.filters.contrast import ContrastFilter
+from components.filters.gaussian_blur import GaussianBlurFilter
+from components.filters.mirror import MirrorFilter
+from components.pipes.last_value import LastValuePipe
+from components.sinks.show import ImShowSink
+from components.sources.video_capture import VideoCaptureSource
+from executor import Executor
 
-if __name__ == '__main__':
-    sink = Queue()
 
-    save = Save(outputs=[])
-    canny_edge = CannyEdge(outputs=[save.input, sink])
-    resize = Resize(outputs=[canny_edge.input])
-    mirror = Mirror(outputs=[canny_edge.input])
+def main():
+    video_capture = VideoCaptureSource()
+
+    render_queues = [LastValuePipe() for i in range(2)]
+
+    input_video_show = ImShowSink(render_queue=render_queues[0], window_name="Input Video Stream")
+    output_video_show = ImShowSink(render_queue=render_queues[1], window_name="Output Video Stream")
+
+    video_capture_to_input_video_show = LastValuePipe()
+    video_capture.add_output_pipe(video_capture_to_input_video_show)
+    input_video_show.set_input_pipe(video_capture_to_input_video_show)
 
     filters = [
-        mirror,
-        canny_edge,
-        resize,
-        save,
+        MirrorFilter(),
+        ColorInversionFilter(),
+        ContrastFilter(),
+        GaussianBlurFilter()
     ]
 
-    for f in filters:
-        f.start()
+    video_capture_to_filters = LastValuePipe()
+    video_capture.add_output_pipe(video_capture_to_filters)
+    filters[0].set_input_pipe(video_capture_to_filters)
 
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        print("Error: Could not open video.")
-    else:
-        while True:
-            ret, frame = cap.read()
-            if not ret:
-                break
+    filter_pipes = [LastValuePipe() for i in range(len(filters) - 1)]
 
-            mirror.input.put(frame)
+    for i in range(len(filters) - 1):
+        filters[i].add_output_pipe(filter_pipes[i])
+        filters[i + 1].set_input_pipe(filter_pipes[i])
 
-            if not sink.empty():
-                processed_frame = sink.get()
-                cv2.imshow('Processed Video Stream', processed_frame)
+    filters_to_output_video_show = LastValuePipe()
+    filters[-1].add_output_pipe(filters_to_output_video_show)
+    output_video_show.set_input_pipe(filters_to_output_video_show)
 
-            cv2.imshow('Input Stream', frame)
+    executor = Executor(
+        processors=[video_capture, input_video_show, output_video_show, *filters],
+        render_queues=render_queues,
+    )
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+    executor.start()
 
-    for f in filters:
-        f.terminate()
 
-    cap.release()
-    cv2.destroyAllWindows()
+if __name__ == "__main__":
+    main()
