@@ -43,18 +43,17 @@ Hands-on-Pipes-and-Filters/
 │   │   └── show.py                   # Sends display commands to the main thread for rendering video frames on the screen
 │   ├── sources/
 │   │   ├── __init__.py               # Initializes the sources module, defines the abstract base class `Source`
-│   │   └── video_capture.py          # Captures video from a camera or a video file
+│   │   └── video_capture.py          # Captures video input from a camera
 │   ├── __init__.py                   # Initializes the components module
-│   └── processor.py                  # Handles the processing of video frames through different components
+│   └── processor.py                  # Abstract base class for processing components; defines the structure for data handling and threading control
 ├── exceptions/
-│   ├── __init__.py                   # Initializes the exceptions module
+│   ├── __init__.py                   # Initializes the exceptions module, contains the abstract Source class, inheriting from Processor
 │   └── input_pipe_not_set.py         # Custom exception raised when an input pipe is not configured
 ├── README.md                         # Documentation on how to set up and run the project
 ├── __init__.py                       # Root module initialization file
 ├── executor.py                       # Manages the execution and orchestration of filters, pipes, and sinks
 ├── main.py                           # Main entry point of the application; initializes components and starts the video processing
 └── requirements.txt                  # Lists the necessary dependencies and Python packages to install
-
 </pre>
 
 ## Setup Instructions 
