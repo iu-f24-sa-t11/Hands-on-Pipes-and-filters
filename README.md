@@ -8,6 +8,16 @@
 | Matthew Rusakov | B22-SD-03 | m.rusakov@innopolis.university  |
 | Egor Valikov    | B22-CBS-01| e.valikov@innopolis.university  |
 
+## Application:
+
+This application demonstrates the Pipes and Filters design pattern. It captures a video stream from your webcam and applies a sequence of four filters. The application displays two windows: one showing the original input and the other showing the processed output.
+
+Filters applied:
+- MirrorFilter – Reflects the video horizontally.
+- ColorInversionFilter – Inverts the colors of the video.
+- ContrastFilter – Adjusts the contrast of the video.
+- GaussianBlurFilter – Applies a Gaussian blur effect to the video.
+
 ## Codebase organisation:
 <pre>
 Hands-on-Pipes-and-Filters/
@@ -61,4 +71,4 @@ To run this application, you should:
 ```
 
 ## Link to YouTube video:
-TODO
+[Here](https://youtu.be/13WoVu_w4Mc)
