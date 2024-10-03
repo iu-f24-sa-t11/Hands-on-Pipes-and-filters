@@ -11,7 +11,7 @@ from executor import Executor
 def main():
     video_capture = VideoCaptureSource()
 
-    render_queues = [LastValuePipe() for i in range(2)]
+    render_queues = [LastValuePipe() for _ in range(2)]
 
     input_video_show = ImShowSink(
         render_queue=render_queues[0], window_name="Input Video Stream"
@@ -35,7 +35,7 @@ def main():
     video_capture.add_output_pipe(video_capture_to_filters)
     filters[0].set_input_pipe(video_capture_to_filters)
 
-    filter_pipes = [LastValuePipe() for i in range(len(filters) - 1)]
+    filter_pipes = [LastValuePipe() for _ in range(len(filters) - 1)]
 
     for i in range(len(filters) - 1):
         filters[i].add_output_pipe(filter_pipes[i])
